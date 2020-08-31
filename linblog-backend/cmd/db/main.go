@@ -1,16 +1,24 @@
 package main
 
 import (
-	"github.com/Linjiangzhu/linblog/linblog-backend/model"
+	"fmt"
+	"github.com/Linjiangzhu/blog-v2/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func main() {
-	db, err := gorm.Open("mysql", "root:password@/blogdb?charset=utf8&parseTime=True&loc=Local")
+func initDB() *gorm.DB {
+	db, err := gorm.Open("mysql", "root:password@/blogdb_v2?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return nil
 	}
+	return db
+}
+
+func main() {
+	db := initDB()
 	defer db.Close()
 	db.Exec("DROP TABLE IF EXISTS post_tag")
 	db.Exec("DROP TABLE IF EXISTS post_cat")
@@ -19,6 +27,7 @@ func main() {
 	db.Exec("DROP TABLE IF EXISTS posts")
 	db.Exec("DROP TABLE IF EXISTS users")
 	db.Exec("DROP TABLE IF EXISTS roles")
+
 	// create roles
 	db.AutoMigrate(&model.Role{})
 	roleAdmin := model.Role{Name: "admin"}
@@ -28,27 +37,27 @@ func main() {
 	// create users
 	db.AutoMigrate(&model.User{})
 	db.Model(&model.User{}).AddForeignKey("role_id", "roles(id)", "RESTRICT", "RESTRICT")
+
+	pw1, _ := bcrypt.GenerateFromPassword([]byte("admin"), bcrypt.DefaultCost)
 	userAdmin := model.User{
 		ID:       "0001",
-		UserName: "admin01",
-		Email:    "admin email 01",
+		Username: "admin01",
 		NickName: "admin 01",
-		Password: "password",
+		Password: string(pw1),
 		RoleID:   roleAdmin.ID,
 	}
+	pw2, _ := bcrypt.GenerateFromPassword([]byte("user"), bcrypt.DefaultCost)
 	userUser := model.User{
 		ID:       "0002",
-		UserName: "user01",
-		Email:    "user email 01",
+		Username: "user01",
 		NickName: "user 01",
-		Password: "password",
+		Password: string(pw2),
 		RoleID:   roleUser.ID,
 	}
 	db.Create(&userAdmin)
 	db.Create(&userUser)
-	//var getUser model.User
-	//db.Model(&roleAdmin).Related(&getUser)
-	//fmt.Println(getUser)
+
+	// create posts
 	db.AutoMigrate(&model.Post{})
 	db.Model(&model.Post{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 	p1 := model.Post{
@@ -99,11 +108,7 @@ func main() {
 	db.Create(&p4)
 	db.Create(&p5)
 	db.Create(&p6)
-	//var posts []model.Post
-	//db.Model(&userAdmin).Related(&posts)
-	//for _, p := range posts {
-	//	fmt.Println(p)
-	//}
+
 	db.AutoMigrate(&model.Tag{})
 	db.Table("post_tag").AddForeignKey("post_id", "posts(id)", "RESTRICT", "RESTRICT")
 	db.Table("post_tag").AddForeignKey("tag_id", "tags(id)", "RESTRICT", "RESTRICT")
@@ -113,11 +118,7 @@ func main() {
 	db.Model(&p2).Association("Tags").Append(&tag1, &tag2)
 	db.Model(&p4).Association("Tags").Append(&tag1)
 	db.Model(&p5).Association("Tags").Append(&tag1, &tag2)
-	//var posts []model.Post
-	//db.Model(&tag1).Related(&posts, "Posts")
-	//for _, p := range posts {
-	//	fmt.Println(p)
-	//}
+
 	db.AutoMigrate(&model.Category{})
 	cat1 := model.Category{Name: "cat01"}
 	cat2 := model.Category{Name: "cat02"}
@@ -127,4 +128,5 @@ func main() {
 	db.Model(&p5).Association("Categories").Append(&cat2)
 	db.Table("post_cat").AddForeignKey("post_id", "posts(id)", "RESTRICT", "RESTRICT")
 	db.Table("post_cat").AddForeignKey("category_id", "categories(id)", "RESTRICT", "RESTRICT")
+
 }

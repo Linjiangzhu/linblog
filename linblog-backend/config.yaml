@@ -1,0 +1,5 @@
+PORT: 9090
+DB:
+  URL: root:password@/blogdb_v2?charset=utf8&parseTime=True&loc=Local
+REDIS:
+  URL: localhost:6379

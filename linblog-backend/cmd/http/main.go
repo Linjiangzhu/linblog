@@ -2,28 +2,55 @@ package main
 
 import (
 	"context"
+	"github.com/Linjiangzhu/blog-v2/controller"
+	"github.com/Linjiangzhu/blog-v2/middleware"
+	"github.com/Linjiangzhu/blog-v2/repository"
+	"github.com/Linjiangzhu/blog-v2/service"
+	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v7"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 )
 
 func main() {
-	db, err := gorm.Open("mysql", "root:password@/blogdb?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:password@/blogdb_v2?charset=utf8&parseTime=True&loc=Local")
+	db.LogMode(true)
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
-	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Welcome Gin Server")
+	rc := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
 	})
+	defer rc.Close()
+	r := repository.NewRepository(db, rc)
+	s := service.NewService(r)
+	ctrl := controller.NewController(s)
+
+	router := gin.Default()
+
+	router.GET("/posts", ctrl.GetPosts)
+	router.GET("/post/:pid", ctrl.GetPost)
+	router.POST("/admin/login", ctrl.Login)
+
+	authorized := router.Group("/admin")
+	authorized.Use(middleware.NewJWTAuth(db, rc))
+	{
+		authorized.GET("/posts", ctrl.GetPosts)
+		authorized.GET("/post/:pid", ctrl.GetPost)
+		authorized.POST("/post", ctrl.CreatePost)
+		authorized.DELETE("/post/:pid", ctrl.DeletePost)
+		authorized.PUT("/post/:pid", ctrl.UpdatePost)
+		authorized.GET("/logout", ctrl.Logout)
+	}
 
 	srv := &http.Server{
 		Addr:    ":9090",
