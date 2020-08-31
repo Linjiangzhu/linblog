@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/Linjiangzhu/blog-v2/repository"
+	"github.com/Linjiangzhu/linblog/linblog-backend/repository"
 )
 
 type Service struct {

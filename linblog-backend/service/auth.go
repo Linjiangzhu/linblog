@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/Linjiangzhu/blog-v2/model"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 	"time"

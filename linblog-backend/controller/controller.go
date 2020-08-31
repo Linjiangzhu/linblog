@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/Linjiangzhu/blog-v2/service"
+	"github.com/Linjiangzhu/linblog/linblog-backend/service"
 )
 
 type Controller struct {

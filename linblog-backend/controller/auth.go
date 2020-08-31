@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	"github.com/Linjiangzhu/blog-v2/model"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"

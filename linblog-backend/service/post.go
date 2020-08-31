@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
-	"github.com/Linjiangzhu/blog-v2/model"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 )
 
 func (s *Service) GetPost(pid uint) (*model.Post, error) {

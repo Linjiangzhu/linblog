@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	"github.com/Linjiangzhu/blog-v2/controller"
-	"github.com/Linjiangzhu/blog-v2/middleware"
-	"github.com/Linjiangzhu/blog-v2/repository"
-	"github.com/Linjiangzhu/blog-v2/service"
+	"github.com/Linjiangzhu/linblog/linblog-backend/controller"
+	"github.com/Linjiangzhu/linblog/linblog-backend/middleware"
+	"github.com/Linjiangzhu/linblog/linblog-backend/repository"
+	"github.com/Linjiangzhu/linblog/linblog-backend/service"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v7"
 	_ "github.com/go-sql-driver/mysql"

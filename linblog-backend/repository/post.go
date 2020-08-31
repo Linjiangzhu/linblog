@@ -1,8 +1,6 @@
 package repository
 
-import (
-	"github.com/Linjiangzhu/blog-v2/model"
-)
+import "github.com/Linjiangzhu/linblog/linblog-backend/model"
 
 func (r *Repository) GetPost(pid uint) (*model.Post, error) {
 	p := model.Post{ID: pid}

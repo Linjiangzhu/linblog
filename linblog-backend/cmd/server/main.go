@@ -1,6 +1,6 @@
 package main
 
-import "github.com/Linjiangzhu/blog-v2/cmd"
+import "github.com/Linjiangzhu/linblog/linblog-backend/cmd"
 
 func main() {
 	cmd.Execute()

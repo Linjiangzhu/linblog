@@ -1,8 +1,6 @@
 package repository
 
-import (
-	"github.com/Linjiangzhu/blog-v2/model"
-)
+import "github.com/Linjiangzhu/linblog/linblog-backend/model"
 
 const (
 	getUserByIDSQL = "SELECT * from users where id = ?"

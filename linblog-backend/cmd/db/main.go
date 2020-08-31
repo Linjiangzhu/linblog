@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Linjiangzhu/blog-v2/model"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
