@@ -2,15 +2,17 @@ package cmd
 
 import (
 	"context"
+	"fmt"
 	"github.com/Linjiangzhu/linblog/linblog-backend/controller"
+	"github.com/Linjiangzhu/linblog/linblog-backend/middleware"
 	"github.com/Linjiangzhu/linblog/linblog-backend/repository"
 	"github.com/Linjiangzhu/linblog/linblog-backend/service"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v7"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
@@ -23,33 +25,58 @@ func init() {
 	rootCmd.AddCommand(serveCmd)
 }
 
+func serveApi(db *gorm.DB, rc *redis.Client, ctrl *controller.Controller) *gin.Engine {
+	router := gin.Default()
+	api := router.Group("/blog/api")
+	{
+		api.GET("/post/:pid", ctrl.GetPost)
+		api.GET("/posts", ctrl.GetPosts)
+		api.POST("/admin/login", ctrl.Login)
+	}
+	authorized := api.Group("/admin").Use(middleware.NewJWTAuth(db, rc))
+	{
+		authorized.POST("/post", ctrl.CreatePost)
+		authorized.DELETE("/post/:pid", ctrl.DeletePost)
+		authorized.PUT("/post/:pid", ctrl.UpdatePost)
+		authorized.GET("/post/:pid", ctrl.GetPost)
+		authorized.GET("/posts", ctrl.GetPosts)
+		authorized.GET("/logout", ctrl.Logout)
+	}
+	return router
+}
+
 var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "serve blog-api backend server",
 	RunE: func(cmd *cobra.Command, args []string) error {
-
-		// get yaml config
-		dbMap := viper.Get("DB")
-		dbConfig := dbMap.(map[string]interface{})
-		dbURL, _ := dbConfig["url"].(string)
-		redisMap := viper.Get("REDIS")
-		redisConfig := redisMap.(map[string]interface{})
-		redisURL := redisConfig["url"].(string)
+		var config Config
+		if err := viper.Unmarshal(&config); err != nil {
+			panic(err)
+		}
+		dsn := fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+			config.Mysql.Username,
+			config.Mysql.Password,
+			config.Mysql.Address,
+			config.Mysql.DBName)
 
 		// open mysql connection
-		db, err := gorm.Open("mysql", dbURL)
+		db, err := gorm.Open(mysql.New(mysql.Config{DSN: dsn}), &gorm.Config{})
 		if err != nil {
 			return err
 		}
+		sqlDB, _ := db.DB()
 
 		// open redis connection
-		rc := redis.NewClient(&redis.Options{Addr: redisURL})
+		rc := redis.NewClient(&redis.Options{
+			Addr:     config.Redis.Address,
+			Password: config.Redis.Password,
+			DB:       config.Redis.DB})
 		_, err = rc.Ping().Result()
 		if err != nil {
 			return err
 		}
 
-		defer db.Close()
+		defer sqlDB.Close()
 		defer rc.Close()
 
 		// establish app
@@ -58,23 +85,8 @@ var serveCmd = &cobra.Command{
 		ctrl := controller.NewController(s)
 
 		// establish api
+		router := serveApi(db, rc, ctrl)
 
-		router := gin.Default()
-		api := router.Group("/blog/api")
-		{
-			api.GET("/post/:pid", ctrl.GetPost)
-			api.GET("/posts", ctrl.GetPosts)
-		}
-		authorized := api.Group("/admin")
-		{
-			authorized.POST("/post", ctrl.CreatePost)
-			authorized.DELETE("/post/:pid", ctrl.DeletePost)
-			authorized.PUT("/post/:pid", ctrl.UpdatePost)
-			authorized.GET("/post/:pid", ctrl.GetPost)
-			authorized.GET("/posts", ctrl.GetPosts)
-			authorized.POST("/login", ctrl.Login)
-			authorized.GET("/logout", ctrl.Logout)
-		}
 		portStr := ":" + viper.GetString("PORT")
 		srv := &http.Server{
 			Addr:    portStr,

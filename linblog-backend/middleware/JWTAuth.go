@@ -1,11 +1,11 @@
 package middleware
 
 import (
-	"github.com/Linjiangzhu/blog-v2/model"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v7"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"net/http"
 	"strings"
 )

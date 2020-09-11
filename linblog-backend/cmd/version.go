@@ -13,6 +13,6 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "blog-api version",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("blog-api v0.1")
+		fmt.Println("blog-api v0.2")
 	},
 }

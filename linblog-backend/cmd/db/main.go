@@ -2,131 +2,140 @@ package main
 
 import (
 	"fmt"
+	"github.com/Linjiangzhu/linblog/linblog-backend/cmd"
 	"github.com/Linjiangzhu/linblog/linblog-backend/model"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
+	"github.com/rs/xid"
+	"github.com/spf13/viper"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 )
 
-func initDB() *gorm.DB {
-	db, err := gorm.Open("mysql", "root:password@/blogdb_v2?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		fmt.Println(err)
-		return nil
+func main() {
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
 	}
-	return db
+	var config cmd.Config
+	if err := viper.Unmarshal(&config); err != nil {
+		panic(err)
+	}
+	var db *gorm.DB
+	fmt.Println("check if database exist...")
+	if hasDatabase(&config) {
+		fmt.Println("exist, start migrating schema...")
+		db, _ := gorm.Open(mysql.New(mysql.Config{
+			DSN: fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+				config.Mysql.Username,
+				config.Mysql.Password,
+				config.Mysql.Address,
+				config.Mysql.DBName),
+		}), &gorm.Config{})
+		migrateTable(db)
+		fmt.Println("finished!")
+	} else {
+		fmt.Println("not exist, start creating database...")
+		db, _ = createDatabase(&config)
+		fmt.Println("database created, start creating schema...")
+		migrateTable(db)
+		fmt.Println("tables created, start insert dummy data...")
+		fillDummyData(db)
+		fmt.Println("finished!")
+	}
+
 }
 
-func main() {
-	db := initDB()
-	defer db.Close()
-	db.Exec("DROP TABLE IF EXISTS post_tag")
-	db.Exec("DROP TABLE IF EXISTS post_cat")
-	db.Exec("DROP TABLE IF EXISTS tags")
-	db.Exec("DROP TABLE IF EXISTS categories")
-	db.Exec("DROP TABLE IF EXISTS posts")
-	db.Exec("DROP TABLE IF EXISTS users")
-	db.Exec("DROP TABLE IF EXISTS roles")
+func hasDatabase(config *cmd.Config) bool {
+	dsn := fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		config.Mysql.Username,
+		config.Mysql.Password,
+		config.Mysql.Address,
+		config.Mysql.DBName)
+	db, err := gorm.Open(mysql.New(mysql.Config{
+		DSN: dsn,
+	}), &gorm.Config{})
+	sqlDB, _ := db.DB()
+	sqlDB.Close()
+	return err == nil
+}
 
-	// create roles
-	db.AutoMigrate(&model.Role{})
-	roleAdmin := model.Role{Name: "admin"}
-	roleUser := model.Role{Name: "user"}
-	db.Create(&roleAdmin)
-	db.Create(&roleUser)
-	// create users
-	db.AutoMigrate(&model.User{})
-	db.Model(&model.User{}).AddForeignKey("role_id", "roles(id)", "RESTRICT", "RESTRICT")
+func createDatabase(config *cmd.Config) (*gorm.DB, error) {
+	dsn := fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		config.Mysql.Username,
+		config.Mysql.Password,
+		config.Mysql.Address,
+		config.Mysql.DBName)
+	// connect to dsn without database
+	newDSN := fmt.Sprintf("%s:%s@(%s)/",
+		config.Mysql.Username,
+		config.Mysql.Password,
+		config.Mysql.Address)
+	newDB, _ := gorm.Open(mysql.New(mysql.Config{
+		DSN: newDSN,
+	}), &gorm.Config{})
+	newDB.Exec("CREATE DATABASE " + config.Mysql.DBName)
+	newSQLDB, _ := newDB.DB()
+	newSQLDB.Close()
+	return gorm.Open(mysql.New(mysql.Config{
+		DSN: dsn,
+	}), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 
-	pw1, _ := bcrypt.GenerateFromPassword([]byte("admin"), bcrypt.DefaultCost)
-	userAdmin := model.User{
-		ID:       "0001",
-		Username: "admin01",
-		NickName: "admin 01",
-		Password: string(pw1),
-		RoleID:   roleAdmin.ID,
-	}
-	pw2, _ := bcrypt.GenerateFromPassword([]byte("user"), bcrypt.DefaultCost)
-	userUser := model.User{
-		ID:       "0002",
-		Username: "user01",
-		NickName: "user 01",
-		Password: string(pw2),
-		RoleID:   roleUser.ID,
-	}
-	db.Create(&userAdmin)
-	db.Create(&userUser)
+}
 
-	// create posts
-	db.AutoMigrate(&model.Post{})
-	db.Model(&model.Post{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
-	p1 := model.Post{
-		Title:   "p01",
-		Brief:   "p01",
-		Content: "p01",
-		Visible: true,
-		UserID:  userAdmin.ID,
-	}
-	p2 := model.Post{
-		Title:   "p02",
-		Brief:   "p02",
-		Content: "p02",
-		Visible: true,
-		UserID:  userAdmin.ID,
-	}
-	p3 := model.Post{
-		Title:   "p03",
-		Brief:   "p03",
-		Content: "p03",
-		Visible: true,
-		UserID:  userAdmin.ID,
-	}
-	p4 := model.Post{
-		Title:   "p04",
-		Brief:   "p04",
-		Content: "p04",
-		Visible: true,
-		UserID:  userUser.ID,
-	}
-	p5 := model.Post{
-		Title:   "p05",
-		Brief:   "p05",
-		Content: "p05",
-		Visible: true,
-		UserID:  userUser.ID,
-	}
-	p6 := model.Post{
-		Title:   "p06",
-		Brief:   "p06",
-		Content: "p06",
-		Visible: true,
-		UserID:  userUser.ID,
-	}
-	db.Create(&p1)
-	db.Create(&p2)
-	db.Create(&p3)
-	db.Create(&p4)
-	db.Create(&p5)
-	db.Create(&p6)
+func migrateTable(db *gorm.DB) {
+	_ = db.AutoMigrate(
+		&model.Role{},
+		&model.User{},
+		&model.Post{},
+		&model.Tag{},
+		&model.Category{})
+}
 
-	db.AutoMigrate(&model.Tag{})
-	db.Table("post_tag").AddForeignKey("post_id", "posts(id)", "RESTRICT", "RESTRICT")
-	db.Table("post_tag").AddForeignKey("tag_id", "tags(id)", "RESTRICT", "RESTRICT")
-	tag1 := model.Tag{Name: "tag01"}
-	tag2 := model.Tag{Name: "tag02"}
-	db.Model(&p1).Association("Tags").Append(&tag1)
-	db.Model(&p2).Association("Tags").Append(&tag1, &tag2)
-	db.Model(&p4).Association("Tags").Append(&tag1)
-	db.Model(&p5).Association("Tags").Append(&tag1, &tag2)
+func fillDummyData(db *gorm.DB) {
+	role := model.Role{Name: "admin"}
+	db.Create(&role)
+	username := os.Getenv("BLOG_ADMIN_USERNAME")
+	password := os.Getenv("BLOG_ADMIN_PASSWORD")
+	if len(username) == 0 {
+		username = "admin"
+	}
+	if len(password) == 0 {
+		password = "password"
+	}
+	uid := xid.New().String()
+	pw, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	admin := model.User{
+		ID:       uid,
+		Username: username,
+		Password: string(pw),
+		NickName: "default admin",
+		RoleID:   role.ID,
+	}
+	db.Create(&admin)
 
-	db.AutoMigrate(&model.Category{})
-	cat1 := model.Category{Name: "cat01"}
-	cat2 := model.Category{Name: "cat02"}
-	db.Model(&p1).Association("Categories").Append(&cat1)
-	db.Model(&p2).Association("Categories").Append(&cat2)
-	db.Model(&p4).Association("Categories").Append(&cat1)
-	db.Model(&p5).Association("Categories").Append(&cat2)
-	db.Table("post_cat").AddForeignKey("post_id", "posts(id)", "RESTRICT", "RESTRICT")
-	db.Table("post_cat").AddForeignKey("category_id", "categories(id)", "RESTRICT", "RESTRICT")
-
+	root := "./resource/"
+	files, err := ioutil.ReadDir(root)
+	if err != nil {
+		panic(err)
+	}
+	for _, f := range files {
+		relFilePath := filepath.Join(root, f.Name())
+		byteStr, err := ioutil.ReadFile(relFilePath)
+		if err != nil {
+			continue
+		}
+		p := model.Post{
+			Title:   f.Name(),
+			Brief:   "",
+			Content: string(byteStr),
+			Visible: true,
+			UserID:  admin.ID,
+		}
+		db.Create(&p)
+	}
 }

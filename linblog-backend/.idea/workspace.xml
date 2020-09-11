@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a504184f-ca0f-4c34-a3af-3379b81d8409" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/init.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/code.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/headers.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/image.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/links.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/db/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/db/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/http/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/serve.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/version.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/JWTAuth.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/JWTAuth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/role.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/role.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/pages/api/hello.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/pages/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../linblog-frontend/public/vercel.svg" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="C:\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1hItfkobBLbSLj48wIMip53i50a" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Linjiangzhu\git-project\linblog\linblog-backend" />
+      <recent name="C:\Users\Linjiangzhu\git-project\linblog\linblog-backend\controller" />
+      <recent name="C:\Users\Linjiangzhu\git-project\linblog\linblog-backend\service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/server">
+    <configuration name="go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/db" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="linblog-backend" />
+      <working_directory value="$PROJECT_DIR$" />
+      <envs>
+        <env name="BLOG_ADMIN_USERNAME" value="gopher" />
+        <env name="BLOG_ADMIN_PASSWORD" value="gopher" />
+      </envs>
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/db/main.go" />
+      <package value="github.com/Linjiangzhu/linblog/linblog-backend/cmd/db" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="linblog-backend" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="serve" />
+      <envs>
+        <env name="BLOG_ADMIN_USERNAME" value="gopher" />
+        <env name="BLOG_ADMIN_PASSWORD" value="gopher" />
+      </envs>
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/server/main.go" />
+      <package value="github.com/Linjiangzhu/linblog/linblog-backend/cmd/server" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/db" />
+      <item itemvalue="Go Build.go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/server" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/server" />
+        <item itemvalue="Go Build.go build github.com/Linjiangzhu/linblog/linblog-backend/cmd/db" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599804989194">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599804989194" />
+    <state x="4254" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720219531" />
+    <state x="554" y="124" key="#com.intellij.ide.util.MemberChooser" timestamp="1599798348485">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="554" y="124" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599798348485" />
+    <state x="4533" y="156" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599718890043" />
+    <state x="438" y="196" key="EditFileWatcherDialog" timestamp="1599714939535">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="438" y="196" key="EditFileWatcherDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599714939535" />
+    <state x="638" y="218" key="EnvironmentVariablesDialog" timestamp="1599804366577">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="638" y="218" key="EnvironmentVariablesDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599804366577" />
+    <state x="4638" y="275" key="EnvironmentVariablesDialog/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720217622" />
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom" timestamp="1599805831163">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831163" />
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
+    <state width="1493" height="211" key="GridCell.Tab.0.center" timestamp="1599805831162">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
+    <state width="1493" height="211" key="GridCell.Tab.0.left" timestamp="1599805831162">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
+    <state width="1493" height="211" key="GridCell.Tab.0.right" timestamp="1599805831162">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
+    <state x="279" y="63" key="SettingsEditor" timestamp="1599714941030">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="279" y="63" key="SettingsEditor/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599714941030" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1599805141798">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805141798" />
+  </component>
+</project>

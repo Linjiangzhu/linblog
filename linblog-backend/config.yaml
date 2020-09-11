@@ -1,5 +1,10 @@
 PORT: 9090
-DB:
-  URL: root:password@/blogdb_v2?charset=utf8&parseTime=True&loc=Local
+MYSQL:
+  USERNAME: root
+  PASSWORD: password
+  ADDRESS: localhost
+  DBNAME: blogdb_v2
 REDIS:
-  URL: localhost:6379
+  ADDRESS: localhost:6379
+  PASSWORD:
+  DB: 0

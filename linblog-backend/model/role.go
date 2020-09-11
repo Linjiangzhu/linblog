@@ -1,7 +1,7 @@
 package model
 
 type Role struct {
-	ID    uint   `gorm:"" json:""`
-	Name  string `gorm:"" json:""`
+	ID    uint
+	Name  string
 	Users []User `gorm:"foreignkey:RoleID" json:"-"`
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/Linjiangzhu/linblog/linblog-backend/model"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"net/http"
 	"strconv"
 	"strings"
@@ -63,9 +63,9 @@ func (ctrl *Controller) GetPosts(c *gin.Context) {
 	var posts []model.Post
 	switch role {
 	case "admin":
-		posts, err = ctrl.srv.GetPosts(uint(page), uint(pageSize))
+		posts, err = ctrl.srv.GetPosts(int(page), int(pageSize))
 	default:
-		posts, err = ctrl.srv.GetVisiblePosts(uint(page), uint(pageSize))
+		posts, err = ctrl.srv.GetVisiblePosts(int(page), int(pageSize))
 	}
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": err.Error()})

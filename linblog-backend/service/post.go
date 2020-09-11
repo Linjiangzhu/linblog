@@ -14,11 +14,11 @@ func (s *Service) GetVisiblePost(pid uint) (*model.Post, error) {
 	return s.repo.GetVisiblePost(pid)
 }
 
-func (s *Service) GetPosts(page, pageSize uint) ([]model.Post, error) {
+func (s *Service) GetPosts(page, pageSize int) ([]model.Post, error) {
 	return s.repo.GetPosts((page-1)*pageSize, pageSize)
 }
 
-func (s *Service) GetVisiblePosts(page, pageSize uint) ([]model.Post, error) {
+func (s *Service) GetVisiblePosts(page, pageSize int) ([]model.Post, error) {
 	return s.repo.GetVisiblePosts((page-1)*pageSize, pageSize)
 }
 

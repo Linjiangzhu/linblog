@@ -9,7 +9,8 @@ const (
 
 func (r *Repository) GetUserByID(uid string) (*model.User, error) {
 	u := model.User{}
-	if err := r.db.DB().QueryRow(getUserByIDSQL, uid).Scan(
+	sqlDB, _ := r.db.DB()
+	if err := sqlDB.QueryRow(getUserByIDSQL, uid).Scan(
 		&u.ID,
 		&u.CreatedAt,
 		&u.UpdatedAt,
@@ -23,7 +24,8 @@ func (r *Repository) GetUserByID(uid string) (*model.User, error) {
 }
 
 func (r *Repository) CreateUser(u *model.User) (*model.User, error) {
-	_, err := r.db.DB().Exec(insertUserSQL, u.ID, u.Username, u.Password, u.NickName)
+	sqlDB, _ := r.db.DB()
+	_, err := sqlDB.Exec(insertUserSQL, u.ID, u.Username, u.Password, u.NickName)
 	if err != nil {
 		return nil, err
 	}

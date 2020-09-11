@@ -1,6 +1,10 @@
 package repository
 
-import "github.com/Linjiangzhu/linblog/linblog-backend/model"
+import (
+	"errors"
+	"github.com/Linjiangzhu/linblog/linblog-backend/model"
+	"gorm.io/gorm"
+)
 
 func (r *Repository) GetPost(pid uint) (*model.Post, error) {
 	p := model.Post{ID: pid}
@@ -31,7 +35,8 @@ func (r *Repository) GetVisiblePost(pid uint) (*model.Post, error) {
 func (r *Repository) GetTagsByPID(pid uint) ([]*model.Tag, error) {
 	p := model.Post{ID: pid}
 	var tags []model.Tag
-	err := r.db.Model(&p).Related(&tags, "Tags").Error
+	err := r.db.Model(&p).Association("Tags").Find(&tags)
+	//err := r.db.Model(&p).Related(&tags, "Tags").Error
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +50,8 @@ func (r *Repository) GetTagsByPID(pid uint) ([]*model.Tag, error) {
 func (r *Repository) GetCatsByPID(pid uint) ([]*model.Category, error) {
 	p := model.Post{ID: pid}
 	var cats []model.Category
-	err := r.db.Model(&p).Related(&cats, "Categories").Error
+	err := r.db.Model(&p).Association("Categories").Find(&cats)
+	//err := r.db.Model(&p).Related(&cats, "Categories").Error
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +82,7 @@ func (r *Repository) CreatePost(p *model.Post) (res *model.Post, errs []error) {
 }
 
 func (r *Repository) CreateTagIfNotExist(tag *model.Tag) (*model.Tag, error) {
-	if r.db.Where("name = ?", tag.Name).First(tag).RecordNotFound() {
+	if err := r.db.Where("name = ?", tag.Name).First(tag).Error; errors.Is(err, gorm.ErrRecordNotFound) {
 		err := r.db.Create(tag).Error
 		if err != nil {
 			return nil, err
@@ -86,7 +92,7 @@ func (r *Repository) CreateTagIfNotExist(tag *model.Tag) (*model.Tag, error) {
 }
 
 func (r *Repository) CreateCatIfNotExist(cat *model.Category) (*model.Category, error) {
-	if r.db.Where("name = ?", cat.Name).First(cat).RecordNotFound() {
+	if err := r.db.Where("name = ?", cat.Name).First(cat).Error; errors.Is(err, gorm.ErrRecordNotFound) {
 		err := r.db.Create(cat).Error
 		if err != nil {
 			return nil, err
@@ -125,11 +131,11 @@ func (r *Repository) DeletePost(pid uint) (errs []error) {
 	if err != nil {
 		return []error{err}
 	}
-	err = r.db.Model(p).Association("Tags").Clear().Error
+	err = r.db.Model(p).Association("Tags").Clear()
 	if err != nil {
 		errs = append(errs, err)
 	}
-	err = r.db.Model(p).Association("Categories").Clear().Error
+	err = r.db.Model(p).Association("Categories").Clear()
 	if err != nil {
 		errs = append(errs, err)
 	}
@@ -149,11 +155,11 @@ func (r *Repository) UpdatePost(p *model.Post) (res *model.Post, errs []error) {
 	if len(cerr) > 0 {
 		errs = append(errs, cerr...)
 	}
-	err := r.db.Model(p).Association("Tags").Replace(tags).Error
+	err := r.db.Model(p).Association("Tags").Replace(tags)
 	if err != nil {
 		errs = append(errs, err)
 	}
-	err = r.db.Model(p).Association("Categories").Replace(cats).Error
+	err = r.db.Model(p).Association("Categories").Replace(cats)
 	if err != nil {
 		errs = append(errs, err)
 	}
@@ -170,7 +176,7 @@ func (r *Repository) UpdatePost(p *model.Post) (res *model.Post, errs []error) {
 	return
 }
 
-func (r *Repository) GetPosts(offset, limit uint) ([]model.Post, error) {
+func (r *Repository) GetPosts(offset, limit int) ([]model.Post, error) {
 	var posts []model.Post
 	err := r.db.Table("posts").Offset(offset).Limit(limit).Select("id, created_at, updated_at, " +
 		"title, brief, visible, user_id").Scan(&posts).Error
@@ -180,7 +186,7 @@ func (r *Repository) GetPosts(offset, limit uint) ([]model.Post, error) {
 	return posts, nil
 }
 
-func (r *Repository) GetVisiblePosts(offset, limit uint) ([]model.Post, error) {
+func (r *Repository) GetVisiblePosts(offset, limit int) ([]model.Post, error) {
 	var posts []model.Post
 	err := r.db.Table("posts").Offset(offset).Limit(limit).Select("id, created_at, updated_at, "+
 		"title, brief, visible, user_id").Where("visible = ?", true).Scan(&posts).Error
