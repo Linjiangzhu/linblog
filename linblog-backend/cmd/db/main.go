@@ -131,7 +131,8 @@ func fillDummyData(db *gorm.DB) {
 		}
 		p := model.Post{
 			Title:   f.Name(),
-			Brief:   "",
+			Brief:   "sample brief text",
+			Cover:   "https://pbs.twimg.com/profile_images/1142154201444823041/O6AczwfV_400x400.png",
 			Content: string(byteStr),
 			Visible: true,
 			UserID:  admin.ID,

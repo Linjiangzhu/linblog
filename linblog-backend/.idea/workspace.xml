@@ -20,29 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a504184f-ca0f-4c34-a3af-3379b81d8409" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/init.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/code.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/headers.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/image.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/links.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/db/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/db/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/http/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/serve.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/version.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/post.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/JWTAuth.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/JWTAuth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/role.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/role.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/post.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repository/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/auth.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../linblog-frontend/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../linblog-frontend/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../linblog-frontend/package-lock.json" beforeDir="false" />
@@ -153,10 +141,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599804989194">
+    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600147709458">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599804989194" />
+    <state x="331" y="143" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1600147709458" />
     <state x="4254" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720219531" />
     <state x="554" y="124" key="#com.intellij.ide.util.MemberChooser" timestamp="1599798348485">
       <screen x="0" y="0" width="1536" height="834" />
@@ -172,25 +160,25 @@
     </state>
     <state x="638" y="218" key="EnvironmentVariablesDialog/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599804366577" />
     <state x="4638" y="275" key="EnvironmentVariablesDialog/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720217622" />
-    <state width="1493" height="211" key="GridCell.Tab.0.bottom" timestamp="1599805831163">
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom" timestamp="1600148004403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831163" />
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1600148004403" />
     <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
-    <state width="1493" height="211" key="GridCell.Tab.0.center" timestamp="1599805831162">
+    <state width="1493" height="211" key="GridCell.Tab.0.center" timestamp="1600148004403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1600148004403" />
     <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
-    <state width="1493" height="211" key="GridCell.Tab.0.left" timestamp="1599805831162">
+    <state width="1493" height="211" key="GridCell.Tab.0.left" timestamp="1600148004403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1600148004403" />
     <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
-    <state width="1493" height="211" key="GridCell.Tab.0.right" timestamp="1599805831162">
+    <state width="1493" height="211" key="GridCell.Tab.0.right" timestamp="1600148004403">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1599805831162" />
+    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.834/3840.0.1920.1050@0.0.1536.834" timestamp="1600148004403" />
     <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1536.834/3840.0.1920.1050@3840.0.1920.1050" timestamp="1599720653613" />
     <state x="279" y="63" key="SettingsEditor" timestamp="1599714941030">
       <screen x="0" y="0" width="1536" height="834" />

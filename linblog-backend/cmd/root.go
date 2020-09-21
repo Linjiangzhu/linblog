@@ -34,6 +34,7 @@ func initConfig() {
 		viper.SetConfigFile(configFile)
 	} else {
 		viper.SetConfigName("config")
+		viper.AddConfigPath("conf")
 		viper.AddConfigPath(".")
 	}
 

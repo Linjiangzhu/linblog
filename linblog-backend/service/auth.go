@@ -26,7 +26,7 @@ func (s *Service) VerifyUserPassword(logReq *model.LoginRequestEntity) (token st
 func (s *Service) GenerateJWT(u *model.User) (string, error) {
 	claims := model.CustomClaim{
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(60 * time.Second).Unix(),
+			ExpiresAt: time.Now().Add(1 * time.Hour).Unix(),
 		},
 		UID:    u.ID,
 		RoleID: u.RoleID,

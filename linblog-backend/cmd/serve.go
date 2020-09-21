@@ -7,6 +7,7 @@ import (
 	"github.com/Linjiangzhu/linblog/linblog-backend/middleware"
 	"github.com/Linjiangzhu/linblog/linblog-backend/repository"
 	"github.com/Linjiangzhu/linblog/linblog-backend/service"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v7"
 	"github.com/spf13/cobra"
@@ -27,6 +28,7 @@ func init() {
 
 func serveApi(db *gorm.DB, rc *redis.Client, ctrl *controller.Controller) *gin.Engine {
 	router := gin.Default()
+	router.Use(cors.Default())
 	api := router.Group("/blog/api")
 	{
 		api.GET("/post/:pid", ctrl.GetPost)

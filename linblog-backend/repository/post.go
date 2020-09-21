@@ -42,7 +42,10 @@ func (r *Repository) GetTagsByPID(pid uint) ([]*model.Tag, error) {
 	}
 	var res []*model.Tag
 	for _, t := range tags {
-		res = append(res, &t)
+		res = append(res, &model.Tag{
+			ID:   t.ID,
+			Name: t.Name,
+		})
 	}
 	return res, nil
 }
@@ -57,7 +60,10 @@ func (r *Repository) GetCatsByPID(pid uint) ([]*model.Category, error) {
 	}
 	var res []*model.Category
 	for _, c := range cats {
-		res = append(res, &c)
+		res = append(res, &model.Category{
+			ID:   c.ID,
+			Name: c.Name,
+		})
 	}
 	return res, nil
 }
@@ -179,9 +185,15 @@ func (r *Repository) UpdatePost(p *model.Post) (res *model.Post, errs []error) {
 func (r *Repository) GetPosts(offset, limit int) ([]model.Post, error) {
 	var posts []model.Post
 	err := r.db.Table("posts").Offset(offset).Limit(limit).Select("id, created_at, updated_at, " +
-		"title, brief, visible, user_id").Scan(&posts).Error
+		"title, brief, cover, visible, user_id").Scan(&posts).Error
 	if err != nil {
 		return nil, err
+	}
+	for idx, p := range posts {
+		tags, _ := r.GetTagsByPID(p.ID)
+		cats, _ := r.GetCatsByPID(p.ID)
+		posts[idx].Tags = tags
+		posts[idx].Categories = cats
 	}
 	return posts, nil
 }
@@ -189,9 +201,15 @@ func (r *Repository) GetPosts(offset, limit int) ([]model.Post, error) {
 func (r *Repository) GetVisiblePosts(offset, limit int) ([]model.Post, error) {
 	var posts []model.Post
 	err := r.db.Table("posts").Offset(offset).Limit(limit).Select("id, created_at, updated_at, "+
-		"title, brief, visible, user_id").Where("visible = ?", true).Scan(&posts).Error
+		"title, brief, cover, visible, user_id").Where("visible = ?", true).Scan(&posts).Error
 	if err != nil {
 		return nil, err
+	}
+	for idx, p := range posts {
+		tags, _ := r.GetTagsByPID(p.ID)
+		cats, _ := r.GetCatsByPID(p.ID)
+		posts[idx].Tags = tags
+		posts[idx].Categories = cats
 	}
 	return posts, nil
 }
